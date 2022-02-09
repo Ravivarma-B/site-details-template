@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Screen Shot
 
-![Biofourmis Assignment](https://user-images.githubusercontent.com/55230154/153096304-510b80ad-83b7-4290-bd1f-6ab24aac952a.png)
+![Biofourmis Assignment](https://user-images.githubusercontent.com/55230154/153096429-9b6c0470-55ae-40a3-a01e-b989719449bd.png)
 
 ## Development server
 
