@@ -1,0 +1,17 @@
+<div class="sidenav d-flex">
+    <div class="profile">
+        <img class="logo" src="https://franchisematch.com/wp-content/uploads/2015/02/john-doe.jpg" alt="">
+        <p class="title">John doe</p>
+        <p class="email">emailaddress@gmail.com</p>
+    </div>
+    
+    <ul class="nav-links">
+        <li><a [routerLink]="'/dashboard'" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Dashboard</a></li>
+        <li><a [routerLink]="'/site-details'" routerLinkActive="active">Site Details</a></li>
+        <li><a [routerLink]="'/migrations'" routerLinkActive="active">Migrations</a></li>
+        <li><a [routerLink]="'/backups'" routerLinkActive="active">Backups</a></li>
+        <li><a [routerLink]="'/collaborators'" routerLinkActive="active">Collaborators</a></li>
+        <li><a [routerLink]="'/support'" routerLinkActive="active">Support Tickets</a></li>
+        <li><a [routerLink]="'/new-ticket'" routerLinkActive="active">Open New Ticket</a></li>
+    </ul>
+</div>

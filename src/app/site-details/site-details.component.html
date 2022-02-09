@@ -1,0 +1,137 @@
+<div class="page-header d-flex justify-space-between">
+    <h1 class="title">Site Details</h1>
+    <button class="btn btn-primary" (click)="showAddPopUp=true">+Add New Site</button>
+</div>
+
+<div class="table-options">
+    <span class="title f-w-bold">Show</span>
+    <select name="pageSize" class="page-size-selector" (change)="changePageSize($event)">
+        <option value="10">10</option>
+        <option value="20">20</option>
+    </select>
+    <span class="title f-w-bold">Entries</span>
+    <i class="fa fa-search" aria-hidden="true"></i>
+    <input type="text" class="search" placeholder="search records" (keyup)="filterData($event)">
+</div>
+
+<div class="domain-table">
+    <table class="table-responsive">
+        <thead>
+            <tr>
+                <th>Domain & Plan Name</th>
+                <th>Storage</th>
+                <th>Monthly Visitor</th>
+                <th>Domains</th>
+                <th>Status</th>
+            </tr>
+            <tr class="bg-transparent">
+                <td colspan="5"></td>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-template ngFor [ngForOf]="domainData" let-i="index" let-domain>
+                <tr [ngClass]="{'expanded-row': domain.subdomain && domain.subdomain.length > 0  }">
+                    <td>
+                        <h6 class="title">{{domain.domain}}</h6>
+                        <h6 class="sub-title">Professional Plan</h6>
+                    </td>
+                    <td>
+                        <div class="progress-div">
+                            <div class="progress" [style.width]="convertStorage(domain.usedStorage, domain.storage)">
+                            </div>
+                        </div>
+                        <h6 class="title">{{domain.usedStorage | uppercase}} of {{domain.storage | uppercase}}</h6>
+                    </td>
+                    <td>
+                        <div class="progress-div">
+                            <div class="progress" [style.width]="convertVisitor(domain)"></div>
+                        </div>
+                        <h6 class="title">{{domain.montlyVisitor}} of {{domain.monthlyVisitorCapacity}}</h6>
+                    </td>
+                    <td>
+                        <div class="progress-circle p{{domain.usedDomains/domain.availableDomains*100}}">
+                            <span>{{domain.usedDomains}}/{{domain.availableDomains}}</span>
+                            <div class="left-half-clipper">
+                                <div class="first50-bar"></div>
+                                <div class="value-bar"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <button *ngIf="domain.subdomain && domain.subdomain.length == 0" class="btn btn-sm"
+                            [ngClass]="[domain.status ? 'btn-inactive' : 'btn-active']">
+                            {{domain?.status || 'Active'}}</button>
+                    </td>
+                </tr>
+                <ng-template ngFor [ngForOf]="domain.subdomain" let-i="index" let-last="last" let-subdomain>
+                    <tr [ngClass]="['expand-bg', last ? 'expand-bg-last' : '']">
+                        <td>
+                            <h6 class="title">{{subdomain.name}}</h6>
+                        </td>
+                        <td>
+                            <h6 class="title">{{subdomain.usedStorage | uppercase}}</h6>
+                        </td>
+                        <td>
+                            <h6 class="title">{{subdomain.montlyVisitor}}</h6>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-{{subdomain.domainTag.replace(' ', '-') | lowercase}}">
+                                {{subdomain.domainTag}}</button>
+                        </td>
+                        <td><button *ngIf="domain.subdomain && domain.subdomain.length > 0" class="btn btn-sm"
+                                [ngClass]="[domain.status ? 'btn-inactive' : 'btn-active']">
+                                {{domain?.status || 'Active'}}</button></td>
+                    </tr>
+                </ng-template>
+                <tr class="bg-transparent">
+                    <td colspan="5"></td>
+                </tr>
+            </ng-template>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal-div" *ngIf="showAddPopUp">
+    <div class="modal">
+        <div class="modal-header d-flex justify-space-between">
+            <p class="title f-w-700">Add Domain Details</p>
+            <span class="sub-title close" (click)="showAddPopUp=false">x</span>
+        </div>
+        <hr>
+        <div class="modal-body">
+            <div class="d-flex justify-space-between">
+                <div class="w-100p">
+                    <label class="title">Domain Name *</label>
+                    <input type="text">
+                </div>
+                <div class="w-100p">
+                    <label class="title">Storage *</label>
+                    <input type="text">
+                </div>
+            </div>
+            <div class="d-flex justify-space-between">
+                <div class="w-100p">
+                    <label class="title">Sub Domain</label>
+                    <input type="text">
+                </div>
+                <div class="w-100p">
+                    <label class="title">Monthly Visitor *</label>
+                    <input type="text">
+                </div>
+            </div>
+            <div class="d-flex justify-space-between">
+                <div class="w-100p">
+                    <label></label>
+                    <input type="text">
+                </div>
+                <div class="w-100p"></div>
+            </div>
+            <div class="d-flex justify-space-between">
+                <div class="input-group align-right">
+                    <button class="btn btn-sm">Add More</button>
+                </div>
+                <div class="w-100p"></div>
+            </div>
+        </div>
+    </div>
+</div>
